@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}My Collection - NoSQL Library{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fas fa-book-reader me-3"></i>My Collection</h1>
+    <p>Books you have borrowed from the library</p>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        {% if books %}
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-list me-2"></i>Borrowed Books ({{ books|length }})</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for book in books %}
+                    <div class="col-lg-6 col-xl-4 mb-3">
+                        <div class="book-item">
+                            <div class="book-title">
+                                <i class="fas fa-book me-2 text-primary"></i>
+                                <a href="{{ url_for('book_detail', book_id=book.Book_id) }}" class="text-decoration-none">
+                                    {{ book.Title }}
+                                </a>
+                            </div>
+                            <div class="book-meta">
+                                <i class="fas fa-user-edit me-1"></i><strong>Authors:</strong> {{ book.Authors|join(', ') }}
+                            </div>
+                            <div class="book-meta">
+                                <i class="fas fa-tags me-1"></i><strong>Genres:</strong> {{ book.Genres|join(', ') }}
+                            </div>
+                            <div class="book-availability available">
+                                <i class="fas fa-check-circle me-1"></i>Borrowed
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-info-circle fa-2x text-muted mb-2"></i>
+                <p class="text-muted mb-0">You have not borrowed any books yet.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12 text-center">
+        <a href="{{ url_for('books') }}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Books
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Add Book - NoSQL Library{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fas fa-plus-circle me-3"></i>Add New Book</h1>
+    <p>Expand your library collection by adding new books</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-book me-2"></i>Book Information</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="title" class="form-label">
+                                <i class="fas fa-book me-1"></i>Book Title <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="title" name="title" 
+                                   placeholder="Enter the complete book title" required>
+                            <div class="form-text">Please enter the full and accurate title of the book</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="authors" class="form-label">
+                                <i class="fas fa-user-edit me-1"></i>Authors <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="authors" name="authors" 
+                                   placeholder="Author 1, Author 2, Author 3" required>
+                            <div class="form-text">Separate multiple authors with commas</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="genres" class="form-label">
+                                <i class="fas fa-tags me-1"></i>Genres <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="genres" name="genres" 
+                                   placeholder="Fiction, Mystery, Thriller" required>
+                            <div class="form-text">Separate multiple genres with commas</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="copies" class="form-label">
+                                <i class="fas fa-copy me-1"></i>Number of Copies <span class="text-danger">*</span>
+                            </label>
+                            <input type="number" class="form-control" id="copies" name="copies" 
+                                   min="1" max="100" value="1" required>
+                            <div class="form-text">How many copies of this book do you want to add?</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-info-circle me-1"></i>Book ID
+                            </label>
+                            <input type="text" class="form-control" value="Auto-generated" disabled>
+                            <div class="form-text">Book ID will be automatically assigned</div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="{{ url_for('books') }}" class="btn btn-secondary me-md-2">
+                                    <i class="fas fa-arrow-left me-2"></i>Back to Books
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-plus me-2"></i>Add Book to Library
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Help Section -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0"><i class="fas fa-question-circle me-2"></i>Adding Books - Best Practices</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center p-3">
+                            <i class="fas fa-check-circle fa-2x text-success mb-2"></i>
+                            <h6>Accurate Titles</h6>
+                            <p class="text-muted small">Use the complete and official title as it appears on the book cover</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center p-3">
+                            <i class="fas fa-users fa-2x text-primary mb-2"></i>
+                            <h6>Author Names</h6>
+                            <p class="text-muted small">Include all authors in the correct order, separated by commas</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center p-3">
+                            <i class="fas fa-tag fa-2x text-warning mb-2"></i>
+                            <h6>Genre Classification</h6>
+                            <p class="text-muted small">Choose relevant genres to help users find books easily</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

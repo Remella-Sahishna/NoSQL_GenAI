@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Return Book - NoSQL Library{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fas fa-undo me-3"></i>Return a Book</h1>
+    <p>Select a book from your borrowed list to return it to the library</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-hand-holding me-2"></i>Your Borrowed Books</h3>
+            </div>
+            <div class="card-body">
+                {% if borrowed %}
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="book_id" class="form-label">Select the book to return</label>
+                        <select class="form-select form-select-lg" id="book_id" name="book_id" required>
+                            <option value="">Choose a book to return...</option>
+                            {% for item in borrowed %}
+                            <option value="{{ item.Book_id }}" {% if not item.Book_id %}disabled{% endif %}>
+                                {{ item.Title }}{% if not item.Book_id %} (not found in catalog){% endif %}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('my_collection') }}" class="btn btn-secondary me-md-2">
+                            <i class="fas fa-arrow-left me-2"></i>Back to My Collection
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-undo me-2"></i>Return Selected Book
+                        </button>
+                    </div>
+                </form>
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-info-circle fa-2x text-muted mb-2"></i>
+                    <p class="text-muted mb-0">You currently have no borrowed books to return.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

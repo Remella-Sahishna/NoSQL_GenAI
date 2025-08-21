@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Borrow Book - NoSQL Library{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fas fa-hand-holding me-3"></i>Borrow a Book</h1>
+    <p>Select and borrow books from our available collection</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-book-open me-2"></i>Book Selection</h3>
+            </div>
+            <div class="card-body">
+                {% if books %}
+                    <form method="POST">
+                        <div class="mb-4">
+                            <label for="book_id" class="form-label">
+                                <i class="fas fa-list me-1"></i>Select a Book to Borrow <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select form-select-lg" id="book_id" name="book_id" required>
+                                <option value="">Choose a book from the list below...</option>
+                                {% for book in books %}
+                                <option value="{{ book.Book_id }}">
+                                    {{ book.Title }} - by {{ book.Authors|join(', ') }} 
+                                    ({{ book.Available_copies }} copies available)
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <div class="form-text">Only books with available copies are shown</div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a href="{{ url_for('books') }}" class="btn btn-secondary me-md-2">
+                                        <i class="fas fa-arrow-left me-2"></i>Back to Books
+                                    </a>
+                                    <button type="submit" class="btn btn-warning">
+                                        <i class="fas fa-hand-holding me-2"></i>Borrow Selected Book
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-exclamation-triangle fa-4x text-warning mb-3"></i>
+                        <h4 class="text-warning">No Books Available for Borrowing</h4>
+                        <p class="text-muted">All books are currently borrowed or there are no books in the library.</p>
+                        <a href="{{ url_for('add_book') }}" class="btn btn-success me-2">
+                            <i class="fas fa-plus me-2"></i>Add New Books
+                        </a>
+                        <a href="{{ url_for('books') }}" class="btn btn-primary">
+                            <i class="fas fa-books me-2"></i>View All Books
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Available Books Preview -->
+{% if books %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0"><i class="fas fa-eye me-2"></i>Preview of Available Books</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for book in books[:6] %}
+                    <div class="col-lg-6 col-xl-4 mb-3">
+                        <div class="book-item">
+                            <div class="book-title">
+                                <i class="fas fa-book me-2 text-primary"></i>{{ book.Title }}
+                            </div>
+                            <div class="book-meta">
+                                <i class="fas fa-user-edit me-1"></i><strong>Authors:</strong> {{ book.Authors|join(', ') }}
+                            </div>
+                            <div class="book-meta">
+                                <i class="fas fa-tags me-1"></i><strong>Genres:</strong> {{ book.Genres|join(', ') }}
+                            </div>
+                            <div class="book-availability available">
+                                <i class="fas fa-check-circle me-1"></i>{{ book.Available_copies }} Copies Available
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if books|length > 6 %}
+                <div class="text-center mt-3">
+                    <p class="text-muted">Showing 6 of {{ books|length }} available books</p>
+                    <a href="{{ url_for('books') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-eye me-2"></i>View All Books
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Borrowing Guidelines -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0"><i class="fas fa-info-circle me-2"></i>Borrowing Guidelines</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center p-3">
+                            <i class="fas fa-clock fa-2x text-primary mb-2"></i>
+                            <h6>Borrowing Period</h6>
+                            <p class="text-muted small">Books can be borrowed for up to 14 days</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center p-3">
+                            <i class="fas fa-undo fa-2x text-success mb-2"></i>
+                            <h6>Return Policy</h6>
+                            <p class="text-muted small">Return books on time to allow others to borrow</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center p-3">
+                            <i class="fas fa-exclamation-triangle fa-2x text-warning mb-2"></i>
+                            <h6>Late Returns</h6>
+                            <p class="text-muted small">Late returns may affect future borrowing privileges</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

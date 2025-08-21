@@ -1,0 +1,25 @@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 374-260-242
+127.0.0.1 - - [20/Aug/2025 18:24:13] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [20/Aug/2025 18:24:26] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [20/Aug/2025 18:24:28] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [20/Aug/2025 18:24:31] "[32mPOST / HTTP/1.1[0m" 302 -
+127.0.0.1 - - [20/Aug/2025 18:24:31] "GET /books HTTP/1.1" 200 -
+127.0.0.1 - - [20/Aug/2025 18:24:55] "GET /borrow HTTP/1.1" 200 -
+127.0.0.1 - - [20/Aug/2025 18:25:02] "GET /books HTTP/1.1" 200 -
+127.0.0.1 - - [20/Aug/2025 18:25:03] "GET /chat HTTP/1.1" 200 -
+127.0.0.1 - - [20/Aug/2025 18:25:09] "POST /chat HTTP/1.1" 200 -
+ * Detected change in '/home/remellasahishna/Documents/NoSQL_Library/chatbot.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 374-260-242
+ * Detected change in '/home/remellasahishna/Documents/NoSQL_Library/chatbot.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 374-260-242

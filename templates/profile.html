@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - NoSQL Library{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fas fa-user me-3"></i>My Profile</h1>
+    <p>View your account information and borrowed collection</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-id-card me-2"></i>Account</h3>
+            </div>
+            <div class="card-body">
+                <p class="mb-2"><strong>Username:</strong> {{ user.Username }}</p>
+                <p class="mb-2"><strong>Email:</strong> {{ user.Email }}</p>
+                <p class="mb-0"><strong>User ID:</strong> {{ user.User_id }}</p>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Summary</h3>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-hand-holding fa-2x text-warning"></i>
+                    </div>
+                    <div>
+                        <div class="h4 mb-0">{{ borrowed_count }}</div>
+                        <div class="text-muted">Books currently borrowed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-grid gap-2">
+            <a href="{{ url_for('my_collection') }}" class="btn btn-primary">
+                <i class="fas fa-book-reader me-2"></i>View My Collection
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-book-reader me-2"></i>Recently Borrowed</h3>
+            </div>
+            <div class="card-body">
+                {% if borrowed_books %}
+                    <div class="row">
+                        {% for item in borrowed_books[:6] %}
+                        <div class="col-md-6 col-xl-4 mb-3">
+                            <div class="book-item">
+                                <div class="book-title">
+                                    <i class="fas fa-book me-2 text-primary"></i>
+                                    {% if item.Book_id %}
+                                    <a href="{{ url_for('book_detail', book_id=item.Book_id) }}" class="text-decoration-none">
+                                        {{ item.Title }}
+                                    </a>
+                                    {% else %}
+                                    {{ item.Title }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if borrowed_books|length > 6 %}
+                    <div class="text-center">
+                        <a href="{{ url_for('my_collection') }}" class="btn btn-outline-primary btn-sm">
+                            View All
+                        </a>
+                    </div>
+                    {% endif %}
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-info-circle fa-2x text-muted mb-2"></i>
+                        <p class="text-muted mb-0">You have not borrowed any books yet.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}AI Librarian Chat - NoSQL Library{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fas fa-robot me-3"></i>AI Librarian Assistant</h1>
+    <p>Get personalized book recommendations and expert library guidance</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="chat-container">
+            <!-- Chat Interface -->
+            <div class="text-center mb-4">
+                <div class="mb-3">
+                    <i class="fas fa-robot fa-3x text-primary"></i>
+                </div>
+                <h3>How can I help you today?</h3>
+                <p class="text-muted">Ask me about books, genres, authors, or any library-related questions</p>
+            </div>
+
+            <!-- Chat Form -->
+            <form method="POST" class="mb-4">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text bg-primary text-white">
+                        <i class="fas fa-comment"></i>
+                    </span>
+                    <input type="text" class="form-control" name="message" 
+                           placeholder="Ask me anything about books, authors, genres..." required>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane me-2"></i>Ask
+                    </button>
+                </div>
+            </form>
+
+            <!-- Chat Response -->
+            {% if response %}
+            <div class="chat-message">
+                <div class="d-flex align-items-start">
+                    <div class="flex-shrink-0 me-3">
+                        <i class="fas fa-robot fa-2x text-primary"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="mb-2">AI Librarian Response:</h5>
+                        <div class="response-content">
+                            {{ response|safe }}
+                        </div>
+                        <small class="text-muted mt-2 d-block">
+                            <i class="fas fa-clock me-1"></i>Response generated just now
+                        </small>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Quick Questions -->
+            <div class="mt-4">
+                <h5 class="mb-3"><i class="fas fa-lightbulb me-2"></i>Try asking me:</h5>
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <button class="btn btn-outline-primary btn-sm w-100 quick-question" 
+                                data-question="What books do you recommend for beginners?">
+                            <i class="fas fa-star me-1"></i>Book recommendations for beginners
+                        </button>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <button class="btn btn-outline-primary btn-sm w-100 quick-question" 
+                                data-question="What are the most popular genres in your library?">
+                            <i class="fas fa-fire me-1"></i>Most popular genres
+                        </button>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <button class="btn btn-outline-primary btn-sm w-100 quick-question" 
+                                data-question="Can you suggest books similar to Harry Potter?">
+                            <i class="fas fa-magic me-1"></i>Books like Harry Potter
+                        </button>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <button class="btn btn-outline-primary btn-sm w-100 quick-question" 
+                                data-question="What are some good mystery novels?">
+                            <i class="fas fa-search me-1"></i>Good mystery novels
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AI Features -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0"><i class="fas fa-brain me-2"></i>AI-Powered Features</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center p-3">
+                            <i class="fas fa-lightbulb fa-2x text-warning mb-2"></i>
+                            <h6>Smart Recommendations</h6>
+                            <p class="text-muted small">Get personalized book suggestions based on your interests and reading history</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center p-3">
+                            <i class="fas fa-search fa-2x text-primary mb-2"></i>
+                            <h6>Intelligent Search</h6>
+                            <p class="text-muted small">Find books using natural language queries and get relevant results instantly</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center p-3">
+                            <i class="fas fa-comments fa-2x text-success mb-2"></i>
+                            <h6>Conversational Interface</h6>
+                            <p class="text-muted small">Chat naturally with our AI assistant for a better user experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<div class="row mt-4">
+    <div class="col-12 text-center">
+        <a href="{{ url_for('books') }}" class="btn btn-outline-primary me-2">
+            <i class="fas fa-books me-2"></i>Back to Library
+        </a>
+        <a href="{{ url_for('add_book') }}" class="btn btn-outline-success me-2">
+            <i class="fas fa-plus me-2"></i>Add New Book
+        </a>
+        <a href="{{ url_for('borrow_book') }}" class="btn btn-outline-warning">
+            <i class="fas fa-hand-holding me-2"></i>Borrow Books
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Quick question buttons
+    const quickQuestions = document.querySelectorAll('.quick-question');
+    const messageInput = document.querySelector('input[name="message"]');
+    
+    quickQuestions.forEach(button => {
+        button.addEventListener('click', function() {
+            const question = this.getAttribute('data-question');
+            messageInput.value = question;
+            messageInput.focus();
+        });
+    });
+    
+    // Auto-focus on message input
+    messageInput.focus();
+});
+</script>
+{% endblock %}
+

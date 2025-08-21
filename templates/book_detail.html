@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.Title }} - Details{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fas fa-book me-3"></i>{{ book.Title }}</h1>
+    <p>Explore details and a brief description of this book</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-info-circle me-2"></i>About this book</h3>
+            </div>
+            <div class="card-body">
+                {% if description %}
+                    <p class="mb-0" style="line-height:1.8;">{{ description }}</p>
+                {% else %}
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Description is not available at the moment.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-list me-2"></i>Book details</h3>
+            </div>
+            <div class="card-body">
+                <div class="book-meta mb-2">
+                    <i class="fas fa-user-edit me-1"></i>
+                    <strong>Authors:</strong> {{ book.Authors|join(', ') }}
+                </div>
+                <div class="book-meta mb-2">
+                    <i class="fas fa-tags me-1"></i>
+                    <strong>Genres:</strong> {{ book.Genres|join(', ') }}
+                </div>
+                <div class="book-meta mb-2">
+                    <i class="fas fa-hashtag me-1"></i>
+                    <strong>Book ID:</strong> {{ book.Book_id }}
+                </div>
+                <div class="book-availability {{ 'available' if book.Available_copies > 0 else 'unavailable' }}">
+                    <i class="fas fa-{{ 'check-circle' if book.Available_copies > 0 else 'times-circle' }} me-1"></i>
+                    {{ book.Available_copies }} Available (of {{ book.Total_copies }})
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2">
+            <a href="{{ url_for('books') }}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Books
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
